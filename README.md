@@ -78,5 +78,5 @@ Installation
 Download `bubble-lines` to your machine (optionally make it hidden) and source it on your `${HOME}/.bashrc`.
 
 ```
-. ${HOME}/.bubble-lines
+. ${HOME}/.bubble-lines.bash
 ```

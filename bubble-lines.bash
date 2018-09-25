@@ -2,8 +2,13 @@
 ## A cool and bubbly Bash prompt
 #
 
-# ●─[victor]─[~/.bash-config/themes]─[ⵌ]─[master  ✚87]─●
-# └─●
+#●─[victor]─[~/.bash-config/themes]─[⏻ 80%]─[ⵌ]─[master  ✚87]─●
+#|    |                 |              |      |         |- Git status
+#|    |                 |              |      |- sudo cached
+#|    |                 |              |- Battery status
+#|    |                 |- CWD
+#|    |- Username
+#|- Exit code
 
 ## User choices
 battery_info="y"
