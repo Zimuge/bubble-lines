@@ -15,7 +15,8 @@ The prompt provides the following information:
 * Git status
 
 ```
-●─[victor]─[~/.bash-config/themes]─[⏻ 80%]─[ⵌ]─[master  ✚87]─●
+●─[victor]─[~/.bash-config/themes]─[⏻ 80%]─[ⵌ]─[master  ✚87]─◉
+|    |                 |              |      |         |      |- Online status
 |    |                 |              |      |         |- Git status
 |    |                 |              |      |- sudo cached
 |    |                 |              |- Battery status
@@ -71,6 +72,17 @@ When browsing a git folder, the prompt will show a basic color coded git status 
 **Git has uncommitted files**
 
 ![](images/prompt.git.png)
+
+#### Online status
+
+It displays the current network access (green = online; red = offline).
+
+You need to download the `online-check.sh` (possibly to your `$HOME` folder) and add it to cron:
+
+```cron
+# For online status, make sure to also add the line below to cron
+* * * * * /bin/bash ~/online-check.sh
+```
 
 Installation
 ---

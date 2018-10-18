@@ -1,5 +1,5 @@
 #
-## A cool and bubbly Bash prompt
+## about:A cool and bubbly Bash prompt
 #
 
 #●─[victor]─[~/.bash-config/themes]─[⏻ 80%]─[ⵌ]─[master  ✚87]─●
@@ -14,7 +14,13 @@
 battery_info="y"
 sudo_info="y"
 
+# Choose from: ⌚, ⏳, ✰, ⵌ, ✷
 sudo_icon="ⵌ"
+
+# For online status, make sure to copy the file to your home folder
+# and add the line below to cron
+# * * * * * /bin/bash ~/.online-check.sh
+online_status="n"
 
 # Reset
 PS_Color_Off='\[\e[0m\]'
@@ -28,10 +34,6 @@ PS_Blue='\[\e[34m\]'
 PS_Purple='\[\e[35m\]'
 PS_Cyan='\[\e[36m\]'
 PS_White='\[\e[37m\]'
-
-# Green='\e[0;32m'
-# Yellow='\e[0;33m'
-# Color_Off='\e[0m'
 
 Func_Green='\001\e[0;32m\002'
 Func_Blue='\001\e[0;34m\002'
@@ -89,10 +91,29 @@ _get_battery_info () {
   fi
 }
 
-PS1="\`if [ \$? = 0 ]; then echo ${PS_Green}●${PS_Color_Off}; else \
+_online_status ()
+{
+  if [ -f /tmp/bash-config/offline ] ; then
+    echo -e "${Func_Red}◉${Func_Color_Off}"
+  else
+    echo -e "${Func_Green}◉${Func_Color_Off}"
+  fi
+}
+
+# Sets up the prompt
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] ; then
+  ps1_header="\u@\h"
+else
+  ps1_header="\u"
+fi
+
+export PS1="\`if [ \$? = 0 ]; then echo ${PS_Green}●${PS_Color_Off}; else \
 echo ${PS_Red}●${PS_Color_Off}; fi\`\
-─[${PS_Yellow}\u${PS_Color_Off}]─[${PS_Blue}\w${PS_Color_Off}]\
+─[${PS_Yellow}${ps1_header}${PS_Color_Off}]─[${PS_Blue}\w${PS_Color_Off}]\
 \`if [ \$battery_info = y ] ; then _get_battery_info ; fi\`\
 \`if [ \$sudo_info = y ] ; then _sudo_status ; fi\`\
-\`_git_branch\`─●\
+\`_git_branch\`─\`if [ \$online_status = y ] ; then _online_status ; else echo ● ; fi\`\
 \n└─● "
+
+export PS2="${PS_Green}>>${PS_Color_Off} "
+export PS4="${PS_Purple}++${PS_Color_Off} "
